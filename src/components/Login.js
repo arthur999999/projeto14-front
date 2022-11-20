@@ -1,10 +1,28 @@
 import styled from "styled-components";
 import axios from "axios";
+import { useContext, useState } from "react";
+import UserContext from "../contexts/UserContext.js";
 
 export default function Login () {
+    const { setToken} = useContext(UserContext)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-    function login () {
-        axios.post("http://localhost:5000/")
+    async function  loginUser () {
+
+        const sendLogin = {
+            email: email,
+            password: password
+        }
+
+        try {
+            const requisition = await axios.post("http://localhost:5000/login", sendLogin)
+            setToken(requisition.data)
+        } catch (error) {
+            alert(error.response.data)
+        }
+        
+
     }
 
     return(
@@ -13,9 +31,9 @@ export default function Login () {
 
                 <h1>MyWallet</h1>
                 <div>
-                    <input type="text" placeholder="E-mail" ></input>
-                    <input type="password" placeholder="Senha"></input>
-                    <button>Entrar</button>
+                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" ></input>
+                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha"></input>
+                    <button onClick={()=> loginUser()}>Entrar</button>
                 </div>
                 <p>Primeira vez? Cadastre-se!</p>
                 
@@ -29,8 +47,8 @@ const Center = styled.div`
         box-sizing: border-box;
     }
     
+    min-height: 100vh;
     background-color: #8C11BE;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,6 +96,7 @@ const Center = styled.div`
         font-size: 15px;
         line-height: 18px;
         color: #FFFFFF;
+        margin-bottom: 36px;
     }
 
     .box1 {
