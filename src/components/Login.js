@@ -2,11 +2,14 @@ import styled from "styled-components";
 import axios from "axios";
 import { useContext, useState } from "react";
 import UserContext from "../contexts/UserContext.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Login () {
     const { setToken} = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const navigation = useNavigate()
 
     async function  loginUser () {
 
@@ -18,6 +21,8 @@ export default function Login () {
         try {
             const requisition = await axios.post("http://localhost:5000/login", sendLogin)
             setToken(requisition.data)
+            navigation('/home')
+            
         } catch (error) {
             alert(error.response.data)
         }
