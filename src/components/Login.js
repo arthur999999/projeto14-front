@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login () {
     const { setToken} = useContext(UserContext)
-    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
 
     const navigation = useNavigate()
 
@@ -21,6 +21,7 @@ export default function Login () {
         try {
             const requisition = await axios.post("http://localhost:5000/login", sendLogin)
             setToken(requisition.data)
+            
             navigation('/home')
             
         } catch (error) {
