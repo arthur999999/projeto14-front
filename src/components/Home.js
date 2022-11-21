@@ -2,12 +2,15 @@ import styled from "styled-components"
 import UserContext from "../contexts/UserContext.js";
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Home () {
 
     const {token} = useContext(UserContext)
     const [nameUser, setNameUser] = useState('')
     const [listRegis, setListRegis] = useState([])
+    const [saldo, setSaldo] = useState(0)
+    
 
     useEffect(() => {
 		const requisicao = axios.get("http://localhost:5000/regis", 
@@ -22,14 +25,37 @@ export default function Home () {
             
             
             
+            
 		});
 	}, [token]);
+
+    useEffect(() => {
+		let a = 0
+        let b = 0
+        listRegis.forEach(element => {
+            if(element.type === "positive"){
+                a = a + element.value
+            }
+            if(element.type === "negative"){
+                b = b + element.value
+            }
+        });
+
+        setSaldo(String((a - b).toFixed(2)).replace('.', ','))
+	}, [listRegis]);
+
+    
+
 
     return(
         <Central>
             <div className="box1">
-                <div>
+                <div className="name">
                     <h1>Olá, {nameUser} </h1>
+                    <Link to="/">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </Link>
+                    
                 </div>
                 
                 <div className="box">
@@ -42,7 +68,11 @@ export default function Home () {
                         <span className={m.type}>{String((m.value).toFixed(2)).replace('.', ',')}</span>
                         </div>)}
                     </div>
-                    <p>oi</p>
+                    <div className="saldo">
+                        <p>SALDO</p>
+                        <p>{saldo}</p>
+                    </div>
+                        
                     </div>
             </div>
         </Central>
@@ -63,6 +93,18 @@ const Central = styled.div`
     .box1 {
         margin-top: 25px;
         width: 326px;
+        
+    }
+
+    .name{
+        display: flex;
+        justify-content: space-between;
+        
+    }
+
+    ion-icon {
+        font-size: 35px;
+        color: white;
     }
 
     .box1 h1 {
@@ -125,16 +167,32 @@ const Central = styled.div`
 
     .other {
         overflow-y: scroll;
-        height: 380px;
+        height: 400px;
+        padding-top: 23px;
     }
 
     .box {
         background-color: white;
         height: 446px;
         border-radius: 5px;
-        padding-top: 23px;
+        
         padding-left: 12px;
         padding-right: 12px;
         
+    }
+
+    .saldo {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .saldo p {
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        color: #000000;
+        margin-top: 15px;
     }
     `
