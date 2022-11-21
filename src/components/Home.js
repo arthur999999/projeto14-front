@@ -161,6 +161,8 @@ const Central = styled.div`
         font-size: 16px;
         line-height: 19px;
         color: #000000;
+        width: 190px;
+        overflow-x: scroll;
     }
 
     .regis span{
