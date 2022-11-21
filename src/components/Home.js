@@ -74,6 +74,21 @@ export default function Home () {
                     </div>
                         
                     </div>
+                <div className="buttons">
+                    <Link to="/entrada" >
+                        <div>
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                            <p>Nova<br/>entrada</p>
+                        </div>
+                    </Link>
+                    <Link to="/saida">
+                        <div>
+                            <ion-icon name="remove-circle-outline"></ion-icon>
+                            <p>Nova<br/>saída</p>
+                        </div>
+                    </Link>
+                    
+                </div>
             </div>
         </Central>
     )
@@ -194,5 +209,37 @@ const Central = styled.div`
         line-height: 20px;
         color: #000000;
         margin-top: 15px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 13px;
+        margin-bottom: 13px;
+        text-decoration: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .buttons div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 155px;
+        height: 114px;
+        background-color: #A328D6;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+
+        color: #FFFFFF;
     }
     `
