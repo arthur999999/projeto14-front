@@ -41,7 +41,7 @@ export default function Home () {
             }
         });
 
-        setSaldo(String((a - b).toFixed(2)).replace('.', ','))
+        setSaldo((a - b).toFixed(2))
 	}, [listRegis]);
 
     
@@ -70,7 +70,7 @@ export default function Home () {
                     </div>
                     <div className="saldo">
                         <p>SALDO</p>
-                        <p>{saldo}</p>
+                        <p className={ saldo < 0 ? 'negative' : 'positive'}>{String(saldo).replace('.',',')}</p>
                     </div>
                         
                     </div>
@@ -174,14 +174,7 @@ const Central = styled.div`
         
     }
 
-    .negative {
-        color: #C70000;
-    }
-
-    .positive {
-        color: #03AC00;
-    }
-
+   
     .other {
         overflow-y: scroll;
         height: 400px;
@@ -244,4 +237,23 @@ const Central = styled.div`
 
         color: #FFFFFF;
     }
+
+    .negative {
+        color: #C70000;
+    }
+
+    .positive {
+        color: #03AC00;
+    }
+
+    p.negative {
+        color: #C70000;
+    }
+
+    p.positive  {
+        color: #03AC00;
+    }
+
+
+    
     `
