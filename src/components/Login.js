@@ -2,7 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useContext, useState } from "react";
 import UserContext from "../contexts/UserContext.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login () {
     const { setToken} = useContext(UserContext)
@@ -41,7 +41,10 @@ export default function Login () {
                     <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha"></input>
                     <button onClick={()=> loginUser()}>Entrar</button>
                 </div>
-                <p>Primeira vez? Cadastre-se!</p>
+                <Link to="/register">
+                    <p>Primeira vez? Cadastre-se!</p>
+                </Link>
+                
                 
             </div>
         </Center>
@@ -58,6 +61,10 @@ const Center = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    a {
+        text-decoration: none;
+    }
 
     .box1 div {
 
